@@ -187,6 +187,7 @@ function render(){
   $("feed").querySelectorAll("[data-like]").forEach(b=>b.onclick=()=>toggleLike(b.dataset.like));
   $("feed").querySelectorAll("[data-tog]").forEach(b=>b.onclick=()=>{const id=b.dataset.tog;open.has(id)?open.delete(id):open.add(id);render()});
   $("feed").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{if(confirm("Hapus topik ini?"))store.del("posts",b.dataset.del)});
+  $("feed").querySelectorAll("[data-rdel]").forEach(b=>b.onclick=()=>{if(confirm("Hapus balasan ini?"))store.del("replies",b.dataset.rdel)});
   $("feed").querySelectorAll("[data-rs]").forEach(b=>b.onclick=()=>sendReply(b.dataset.rs));
   $("feed").querySelectorAll(".rin").forEach(i=>{i.oninput=()=>drafts[i.dataset.p]=i.value;i.onkeydown=e=>{if(e.key==="Enter")sendReply(i.dataset.p)}});
   if(focusId){const f=$("feed").querySelector(`.rin[data-p="${focusId}"]`);if(f){f.focus();f.setSelectionRange(f.value.length,f.value.length)}}
@@ -201,7 +202,7 @@ function card(p){
   <button class="ab" data-tog="${p.id}">💬 ${rs.length} Balasan</button>
   ${p.uid===me.id?`<button class="ab" data-del="${p.id}" style="margin-left:auto">🗑</button>`:""}</div>
   <div class="replies ${o?"open":""}">
-    ${rs.map(r=>`<div class="rp">${avatar(r.name)}<div class="bub"><b>${esc(r.name)}</b>${esc(r.text)}</div></div>`).join("")}
+    ${rs.map(r=>`<div class="rp">${avatar(r.name)}<div class="bub"><b>${esc(r.name)}</b>${esc(r.text)}</div>${r.uid===me.id?`<button class="ab" data-rdel="${r.id}" title="Hapus balasan" style="align-self:flex-start;padding:4px 9px">🗑</button>`:""}</div>`).join("")}
     <div class="rf"><input class="in rin" data-p="${p.id}" maxlength="400" placeholder="Tulis balasan…" value="${esc(drafts[p.id]||"")}"><button class="btn p" data-rs="${p.id}">Kirim</button></div>
   </div></article>`;
 }
@@ -235,4 +236,4 @@ setMe();renderChips();render();
 initStore().then(()=>{if(!me.name)$("mProfile").classList.add("open")});
 </script>
 </body>
-  </html>
+</html>
