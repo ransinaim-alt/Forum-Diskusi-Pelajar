@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RuangBelajar – Forum Diskusi Pelajar</title>
+<style>
+:root{--bg:#fff;--ink:#1e1b3a;--mute:#6b6a85;--line:#ecebf5;--soft:#f6f5ff;--pri:#5b4bff;--pri2:#8b5cf6;--pink:#ff6b9d;--amber:#ffb020;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}
+button,input,textarea,select{font:inherit;color:inherit}
+.wrap{max-width:960px;margin:0 auto;padding:0 18px}
+header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:rgba(255,255,255,.9);z-index:21}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px}
+.logo i{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,var(--pri),var(--pri2));display:grid;place-items:center;color:#fff;font-style:normal}
+.me{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;padding:5px 12px 5px 5px;border-radius:99px;cursor:pointer;font-size:14px}
+.av{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:600;font-size:14px;flex:none}
+.hero{position:relative;overflow:hidden;padding:44px 0 34px}
+.hero svg{position:absolute;right:-40px;top:-20px;width:420px;max-width:70%;opacity:.95;z-index:0}
+.hero .wrap{position:relative;z-index:1}
+.pill{display:inline-flex;align-items:center;gap:7px;background:var(--soft);color:var(--pri);padding:5px 12px;border-radius:99px;font-size:13px;font-weight:500}
+.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}100%{box-shadow:0 0 0 9px rgba(34,197,94,0)}}
+h1{font-size:clamp(28px,5.5vw,46px);line-height:1.15;margin:16px 0 10px;max-width:560px;letter-spacing:-.5px}
+h1 span{background:linear-gradient(90deg,var(--pri),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mute);max-width:470px;margin:0 0 22px}
+.btn{border:0;cursor:pointer;border-radius:12px;padding:11px 20px;font-weight:600;font-size:15px;transition:.2s}
+.btn.p{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;box-shadow:0 8px 20px -8px rgba(91,75,255,.6)}
+.btn.p:hover{transform:translateY(-2px)}
+.btn.g{background:var(--soft);color:var(--pri)}
+.stats{display:flex;gap:26px;margin-top:26px;flex-wrap:wrap}
+.stats b{display:block;font-size:22px}.stats small{color:var(--mute)}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:8px 0 18px}
+.search{flex:1;min-width:200px;border:1px solid var(--line);border-radius:12px;padding:11px 14px;outline:none;background:#fff}
+.search:focus,.in:focus{border-color:var(--pri);box-shadow:0 0 0 4px rgba(91,75,255,.1)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px;scrollbar-width:none}
+.chip{border:1px solid var(--line);background:#fff;border-radius:99px;padding:7px 15px;cursor:pointer;white-space:nowrap;font-size:14px;transition:.2s}
+.chip:hover{border-color:var(--pri)}
+.chip.on{background:var(--pri);border-color:var(--pri);color:#fff}
+.card{border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px;background:#fff;transition:.25s;animation:in .4s ease}
+.card:hover{box-shadow:0 14px 34px -18px rgba(91,75,255,.35);transform:translateY(-2px)}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.top{display:flex;gap:11px;align-items:center}
+.top small{color:var(--mute);display:block;font-size:12.5px}
+.tag{margin-left:auto;font-size:12px;padding:3px 11px;border-radius:99px;font-weight:600}
+.card h3{margin:12px 0 4px;font-size:18px}
+.card p{margin:0;color:#474563;white-space:pre-wrap;word-break:break-word}
+.act{display:flex;gap:8px;margin-top:14px}
+.ab{border:0;background:var(--soft);padding:7px 14px;border-radius:10px;cursor:pointer;font-size:14px;transition:.2s}
+.ab:hover{background:#ebe8ff}.ab.liked{background:#ffe3ee;color:#e11d63}
+.replies{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px;display:none}
+.replies.open{display:block}
+.rp{display:flex;gap:10px;margin-bottom:12px}
+.rp .av{width:28px;height:28px;font-size:12px}
+.bub{background:var(--soft);padding:8px 13px;border-radius:4px 14px 14px 14px;font-size:14.5px;word-break:break-word;white-space:pre-wrap}
+.bub b{display:block;font-size:12.5px;color:var(--pri)}
+.rf{display:flex;gap:8px}
+.in{flex:1;border:1px solid var(--line);border-radius:12px;padding:10px 13px;outline:none;background:#fff;width:100%}
+.empty{text-align:center;padding:50px 10px;color:var(--mute)}
+.modal{position:fixed;inset:0;background:rgba(30,27,58,.4);display:none;align-items:center;justify-content:center;z-index:50;padding:18px}
+.modal.open{display:flex}
+.box{background:#fff;border-radius:22px;padding:24px;width:100%;max-width:480px;animation:in .25s;max-height:100%;overflow:auto}
+.box h2{margin:0 0 14px;font-size:20px}
+.box label{display:block;font-size:13px;font-weight:600;margin:12px 0 5px}
+.row{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+.note{background:#fff8e6;color:#8a5a00;font-size:13px;padding:8px 14px;border-radius:10px;margin-bottom:14px;display:none}
+footer{text-align:center;color:var(--mute);font-size:13px;padding:30px 0 40px}
+@media(max-width:560px){.hero{padding-top:28px}.hero svg{opacity:.35}}
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap">
+  <div class="logo"><i>✦</i>RuangBelajar</div>
+  <button class="me" id="meBtn"><span class="av" id="meAv">?</span><span id="meName">Masuk</span></button>
+</div></header>
+
+<section class="hero">
+  <svg viewBox="0 0 400 300" aria-hidden="true">
+    <circle cx="260" cy="130" r="110" fill="#efecff"/>
+    <circle cx="330" cy="60" r="38" fill="#ffe3ee"/>
+    <circle cx="150" cy="240" r="30" fill="#fff1cc"/>
+    <rect x="190" y="90" width="140" height="92" rx="20" fill="#5b4bff"/>
+    <path d="M215 182l-6 28 36-28z" fill="#5b4bff"/>
+    <circle cx="225" cy="136" r="7" fill="#fff"/><circle cx="260" cy="136" r="7" fill="#fff"/><circle cx="295" cy="136" r="7" fill="#fff"/>
+    <rect x="110" y="170" width="120" height="76" rx="18" fill="#ff6b9d"/>
+    <path d="M205 246l10 24 6-24z" fill="#ff6b9d"/>
+    <path d="M132 200h76M132 218h50" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+    <path d="M60 80l6 14 14 6-14 6-6 14-6-14-14-6 14-6z" fill="#ffb020"/>
+  </svg>
+  <div class="wrap">
+    <span class="pill"><span class="dot"></span><span id="onl">Live</span> · terhubung dengan pelajar lain</span>
+    <h1>Belajar bareng, <span>tumbuh bersama.</span></h1>
+    <p>Tanya PR, bagikan tips belajar, dan diskusi langsung dengan pelajar dari mana saja. Semua yang membuka halaman ini bisa saling terhubung.</p>
+    <button class="btn p" id="newBtn">＋ Mulai Diskusi</button>
+    <div class="stats"><div><b id="sP">0</b><small>Topik</small></div><div><b id="sR">0</b><small>Balasan</small></div><div><b id="sU">0</b><small>Pelajar aktif</small></div></div>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="note" id="note">Forum belum terhubung ke database. Isi firebaseConfig di bagian atas script lalu muat ulang halaman.</div>
+  <div class="bar"><input class="search" id="q" placeholder="🔍 Cari topik diskusi…"></div>
+  <div class="chips" id="chips"></div>
+  <div id="feed"></div>
+</main>
+<footer>RuangBelajar · Tetap sopan & saling membantu 💜</footer>
+
+<div class="modal" id="mProfile"><div class="box">
+  <h2>Selamat datang! 👋</h2>
+  <label>Nama panggilanmu</label>
+  <input class="in" id="nick" maxlength="24" placeholder="Contoh: Rina XI IPA">
+  <div class="row"><button class="btn p" id="saveNick">Simpan</button></div>
+</div></div>
+
+<div class="modal" id="mPost"><div class="box">
+  <h2>Topik diskusi baru</h2>
+  <label>Kategori</label><select class="in" id="pCat"></select>
+  <label>Judul</label><input class="in" id="pTitle" maxlength="90" placeholder="Apa yang ingin dibahas?">
+  <label>Isi</label><textarea class="in" id="pBody" rows="4" maxlength="800" placeholder="Jelaskan pertanyaan atau ceritamu…"></textarea>
+  <div class="row"><button class="btn g" id="cancelPost">Batal</button><button class="btn p" id="sendPost">Kirim</button></div>
+</div></div>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import{getAuth,signInAnonymously}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import{getFirestore,collection,doc,setDoc,deleteDoc,onSnapshot,query,orderBy,limit}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* ====== ISI DENGAN KONFIGURASI FIREBASE-MU (lihat panduan) ====== */
+const firebaseConfig={
+  apiKey:"AIzaSyAeskGs0j28j3dzY35ekroxdX5DLKStuaE",
+  authDomain:"forum-diskusi-3634a.firebaseapp.com",
+  projectId:"forum-diskusi-3634a",
+  storageBucket:"forum-diskusi-3634a.firebasestorage.app",
+  messagingSenderId:"499840837008",
+  appId:"1:499840837008:web:87784f68806cbe61337f15"
+};
+/* ================================================================ */
+
+const CATS={Matematika:"#5b4bff",IPA:"#10b981",IPS:"#f59e0b",Bahasa:"#ec4899",Teknologi:"#0ea5e9",Curhat:"#8b5cf6"};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const colorOf=n=>{let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))%360;return`hsl(${h} 65% 55%)`};
+const ago=t=>{const s=(Date.now()-t)/1000;if(s<60)return"baru saja";if(s<3600)return Math.floor(s/60)+" mnt lalu";if(s<86400)return Math.floor(s/3600)+" jam lalu";return Math.floor(s/86400)+" hari lalu"};
+const lsGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+let me={id:"",name:""},posts=[],replies=[],likes=[],peers=[],cat="Semua",open=new Set(),drafts={},db=null;
+
+async function initStore(){
+  if(firebaseConfig.apiKey.startsWith("ISI")){$("note").style.display="block";return}
+  try{
+    const app=initializeApp(firebaseConfig);
+    const cred=await signInAnonymously(getAuth(app));
+    me.id=cred.user.uid;db=getFirestore(app);
+  }catch(e){$("note").textContent="Gagal terhubung ke Firebase: "+e.message;$("note").style.display="block";return}
+  const sync=(c,q,set)=>onSnapshot(query(collection(db,c),...q),s=>{set(s.docs.map(d=>({id:d.id,...d.data()})));render()},e=>{$("note").textContent="Gagal membaca data: "+e.message;$("note").style.display="block"});
+  sync("posts",[orderBy("ts","desc"),limit(100)],v=>posts=v);
+  sync("replies",[orderBy("ts","desc"),limit(1000)],v=>replies=v);
+  sync("likes",[limit(3000)],v=>likes=v);
+  sync("presence",[orderBy("ts","desc"),limit(100)],v=>{peers=v;showOnline()});
+  const beat=()=>setDoc(doc(db,"presence",me.id),{ts:Date.now(),n:me.name||"Tamu"}).catch(()=>{});
+  beat();setInterval(beat,30000);
+}
+function showOnline(){const n=peers.filter(p=>Date.now()-p.ts<75000).length;$("onl").textContent=Math.max(n,1)+" online"}
+setInterval(showOnline,15000);
+const store={
+  add:(c,id,d)=>db?setDoc(doc(db,c,id),d).catch(e=>alert("Gagal mengirim: "+e.message)):alert("Forum belum terhubung ke database."),
+  del:(c,id)=>db&&deleteDoc(doc(db,c,id)).catch(e=>alert("Gagal menghapus: "+e.message))
+};
+
+function avatar(n,cls=""){return`<span class="av ${cls}" style="background:${colorOf(n)}">${esc(n.trim()[0]||"?").toUpperCase()}</span>`}
+function setMe(){$("meName").textContent=me.name||"Masuk";const a=$("meAv");a.textContent=(me.name[0]||"?").toUpperCase();a.style.background=me.name?colorOf(me.name):"#bbb"}
+function renderChips(){
+  $("chips").innerHTML=["Semua",...Object.keys(CATS)].map(c=>`<button class="chip ${c===cat?"on":""}" data-c="${c}">${c}</button>`).join("");
+  $("chips").querySelectorAll(".chip").forEach(b=>b.onclick=()=>{cat=b.dataset.c;renderChips();render()});
+}
+function render(){
+  const q=$("q").value.toLowerCase().trim();
+  const list=posts.filter(p=>(cat==="Semua"||p.cat===cat)&&(!q||(p.title+p.body).toLowerCase().includes(q))).sort((a,b)=>b.ts-a.ts);
+  $("sP").textContent=posts.length;$("sR").textContent=replies.length;
+  $("sU").textContent=new Set([...posts,...replies].map(x=>x.uid)).size;
+  const ae=document.activeElement,focusId=ae&&ae.classList.contains("rin")?ae.dataset.p:null;
+  if(focusId)drafts[focusId]=ae.value;
+  $("feed").innerHTML=list.length?list.map(card).join(""):`<div class="empty"><div style="font-size:46px">💬</div><b>Belum ada diskusi</b><br>Jadilah yang pertama memulai!</div>`;
+  $("feed").querySelectorAll("[data-like]").forEach(b=>b.onclick=()=>toggleLike(b.dataset.like));
+  $("feed").querySelectorAll("[data-tog]").forEach(b=>b.onclick=()=>{const id=b.dataset.tog;open.has(id)?open.delete(id):open.add(id);render()});
+  $("feed").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{if(confirm("Hapus topik ini?"))store.del("posts",b.dataset.del)});
+  $("feed").querySelectorAll("[data-rs]").forEach(b=>b.onclick=()=>sendReply(b.dataset.rs));
+  $("feed").querySelectorAll(".rin").forEach(i=>{i.oninput=()=>drafts[i.dataset.p]=i.value;i.onkeydown=e=>{if(e.key==="Enter")sendReply(i.dataset.p)}});
+  if(focusId){const f=$("feed").querySelector(`.rin[data-p="${focusId}"]`);if(f){f.focus();f.setSelectionRange(f.value.length,f.value.length)}}
+}
+function card(p){
+  const rs=replies.filter(r=>r.pid===p.id).sort((a,b)=>a.ts-b.ts);
+  const ls=likes.filter(l=>l.pid===p.id),mine=ls.some(l=>l.uid===me.id),col=CATS[p.cat]||"#5b4bff",o=open.has(p.id);
+  return`<article class="card">
+  <div class="top">${avatar(p.name)}<div><b>${esc(p.name)}</b><small>${ago(p.ts)}</small></div><span class="tag" style="background:${col}1a;color:${col}">${esc(p.cat)}</span></div>
+  <h3>${esc(p.title)}</h3><p>${esc(p.body)}</p>
+  <div class="act"><button class="ab ${mine?"liked":""}" data-like="${p.id}">${mine?"❤️":"🤍"} ${ls.length}</button>
+  <button class="ab" data-tog="${p.id}">💬 ${rs.length} Balasan</button>
+  ${p.uid===me.id?`<button class="ab" data-del="${p.id}" style="margin-left:auto">🗑</button>`:""}</div>
+  <div class="replies ${o?"open":""}">
+    ${rs.map(r=>`<div class="rp">${avatar(r.name)}<div class="bub"><b>${esc(r.name)}</b>${esc(r.text)}</div></div>`).join("")}
+    <div class="rf"><input class="in rin" data-p="${p.id}" maxlength="400" placeholder="Tulis balasan…" value="${esc(drafts[p.id]||"")}"><button class="btn p" data-rs="${p.id}">Kirim</button></div>
+  </div></article>`;
+}
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+function needName(){if(me.name)return false;$("mProfile").classList.add("open");return true}
+function sendReply(pid){
+  if(needName())return;const t=(drafts[pid]||"").trim();if(!t)return;drafts[pid]="";
+  store.add("replies",uid(),{pid,text:t,name:me.name,uid:me.id,ts:Date.now()});open.add(pid);
+}
+function toggleLike(pid){
+  if(needName())return;const id=pid+"_"+me.id;
+  likes.some(l=>l.id===id)?store.del("likes",id):store.add("likes",id,{pid,uid:me.id});
+}
+$("meBtn").onclick=()=>{$("nick").value=me.name;$("mProfile").classList.add("open")};
+$("saveNick").onclick=()=>{const n=$("nick").value.trim();if(!n)return;me.name=n.slice(0,24);lsSet("rb_name",me.name);setMe();$("mProfile").classList.remove("open")};
+$("nick").onkeydown=e=>{if(e.key==="Enter")$("saveNick").click()};
+$("newBtn").onclick=()=>{if(needName())return;$("mPost").classList.add("open")};
+$("cancelPost").onclick=()=>$("mPost").classList.remove("open");
+$("sendPost").onclick=()=>{
+  const title=$("pTitle").value.trim(),body=$("pBody").value.trim();
+  if(!title||!body){alert("Judul dan isi wajib diisi ya.");return}
+  store.add("posts",uid(),{title,body,cat:$("pCat").value,name:me.name,uid:me.id,ts:Date.now()});
+  $("pTitle").value="";$("pBody").value="";$("mPost").classList.remove("open");
+};
+document.querySelectorAll(".modal").forEach(m=>m.addEventListener("click",e=>{if(e.target===m&&(m.id!=="mProfile"||me.name))m.classList.remove("open")}));
+$("q").oninput=render;
+$("pCat").innerHTML=Object.keys(CATS).map(c=>`<option>${c}</option>`).join("");
+setInterval(()=>{const a=document.activeElement;if(!a||!a.classList.contains("rin"))render()},60000);
+me.name=lsGet("rb_name")||"";
+setMe();renderChips();render();
+initStore().then(()=>{if(!me.name)$("mProfile").classList.add("open")});
+</script>
+</body>
+  </html>
